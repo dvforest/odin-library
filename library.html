@@ -16,8 +16,19 @@
             book.id = this.nextId++;
             this.books.push(book);
         },
+        removeById: function(id){
+            const index = this.books.findIndex(element => element.id === id);
+            this.books.splice(index, 1);
+        },
         info: function(){
             return this.books;
+        },
+        display: function(){
+            this.books.forEach((element, index) => {
+                let entry = document.createElement("div");
+                entry.textContent = `ID: ${element.id}, Title: ${element.title}`;
+                document.body.appendChild(entry);
+            });
         }
     }
 
@@ -30,6 +41,9 @@
 
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "read"));
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "not read yet"));
+    // library.removeById(0);
+    // console.log(library.info());
+    library.display();
 
 </script>
 </html>

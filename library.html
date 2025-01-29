@@ -11,7 +11,9 @@
 
     const library = {
         books: [],
+        lastId: 0,
         add: function(book){
+            book.id = this.lastId++;
             this.books.push(book);
         },
         info: function(){
@@ -29,6 +31,5 @@
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "read"));
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "not read yet"));
 
-    console.log(library.info());
 </script>
 </html>

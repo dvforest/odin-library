@@ -11,9 +11,9 @@
 
     const library = {
         books: [],
-        lastId: 0,
+        nextId: 0,
         add: function(book){
-            book.id = this.lastId++;
+            book.id = this.nextId++;
             this.books.push(book);
         },
         info: function(){

@@ -8,15 +8,27 @@
 <body>
 </body>
 <script>
-    function BookEntry(title, author, pages, read){
+
+    const library = {
+        books: [],
+        add: function(book){
+            this.books.push(book);
+        },
+        info: function(){
+            return this.books;
+        }
+    }
+
+    function Book(title, author, pages, read){
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.read = read;
     }
-    
-    const Whisperwick = new BookEntry("Whisperwick", "Jordan Lee", "539", "read");
-    const Fablehaven = new BookEntry("Fablehaven", "Brandon Muil", "434", "not read yet");
 
+    library.add(new Book("Whisperwick", "Jordan Lee", "539", "read"));
+    library.add(new Book("Fablehaven", "Brandon Muil", "434", "not read yet"));
+
+    console.log(library.info());
 </script>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+</body>
+<script>
+    function BookEntry(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+
+        this.info = function(){
+            return `${title} by ${author}, ${pages} pages, ${read}`;
+        }
+    }
+
+    const Whisperwick = new BookEntry("Whisperwick", "Jordan Lee", "539", "read");
+    const Fablehaven = new BookEntry("Fablehaven", "Brandon Muil", "434", "not read yet");
+
+    console.log(Whisperwick.info());
+    console.log(Fablehaven.info());
+
+</script>
+</html>

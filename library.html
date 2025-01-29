@@ -13,17 +13,10 @@
         this.author = author;
         this.pages = pages;
         this.read = read;
-
-        this.info = function(){
-            return `${title} by ${author}, ${pages} pages, ${read}`;
-        }
     }
-
+    
     const Whisperwick = new BookEntry("Whisperwick", "Jordan Lee", "539", "read");
     const Fablehaven = new BookEntry("Fablehaven", "Brandon Muil", "434", "not read yet");
-
-    console.log(Whisperwick.info());
-    console.log(Fablehaven.info());
 
 </script>
 </html>

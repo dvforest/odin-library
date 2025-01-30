@@ -1,0 +1,14 @@
+#add-book-modal {
+    width: 300px;
+    display: none;
+}
+
+#add-book-modal .form-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1rem;
+}
+
+#add-to-library-btn {
+    grid-column-start: 2;
+}

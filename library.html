@@ -11,7 +11,7 @@
     <button id="add-book-btn"> Add Book</button>
 
     <div id="add-book-modal">
-        <form>
+        <form onsubmit="return submitForm()">
             <fieldset>
                 <legend>Enter Book Information</legend>
 
@@ -54,31 +54,52 @@
         info: function(){
             return this.books;
         },
-        display: function(){
+        update: function(){
             this.books.forEach((element, index) => {
                 let entry = document.createElement("div");
-                entry.textContent = `ID: ${element.id}, Title: ${element.title}`;
+                entry.textContent = `ID: ${element.id}, Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Status: ${element.status}`;
                 document.body.appendChild(entry);
             });
         }
     }
 
-    function Book(title, author, pages, read){
+    function Book(title, author, pages, status){
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.read = read;
+        this.status = status;
     }
 
-    library.add(new Book("Whisperwick", "Jordan Lee", "539", "read"));
-    library.add(new Book("Fablehaven", "Brandon Muil", "434", "not read yet"));
+    library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
+    library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
 
     const button = document.getElementById("add-book-btn");
-    button.addEventListener("click", () => {displayModal("add-book-modal")});
+    button.addEventListener("click", () => {displayModal(true)});
 
-    function displayModal(id) {
-        const modal = document.getElementById(id);
-        modal.style.display = "block";
+    function displayModal(display) {
+        const modal = document.getElementById("add-book-modal");
+        
+        if (display) {
+            modal.style.display = "block";
+        }
+        else {
+            modal.style.display = "none"
+        }
+    }
+
+    function submitForm() {
+        const title = document.getElementById("book-title").value;
+        const author = document.getElementById("book-author").value;
+        const pages = document.getElementById("book-pages").value;
+        const status = document.getElementById("book-status").value;
+
+        library.add(new Book(title, author, pages, status))
+
+        displayModal(false);
+
+        library.update();
+
+        return false;
     }
 
 </script>

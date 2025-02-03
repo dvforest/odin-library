@@ -7,7 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>My Library</h1>
+    <table id="library">
+        <caption>My Library</caption>
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Status</th>                
+            </tr>
+            <tbody id="lib-body"></tbody>
+        </thead>
+    </table>
+
     <button id="add-book-btn"> Add Book</button>
 
     <div id="book-form-container">
@@ -37,7 +49,6 @@
             </fieldset>
         </form>
     </div>
-    <div id="library"></div>
 </body>
 <script>
 
@@ -56,13 +67,18 @@
             return this.books;
         },
         update: function(){
-            const lib = document.getElementById("library");
+            const lib = document.getElementById("lib-body");
             lib.innerHTML = "";
-            
+
             this.books.forEach((element, index) => {
-                let entry = document.createElement("div");
-                entry.textContent = `ID: ${element.id}, Title: ${element.title}, Author: ${element.author}, Pages: ${element.pages}, Status: ${element.status}`;
-                lib.appendChild(entry);
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <th scope="row">${element.title}</th>
+                    <td>${element.author}</td>
+                    <td>${element.pages}</td>
+                    <td>${element.status}</td>
+                `;
+                lib.appendChild(row);
             });
         }
     }
@@ -74,25 +90,13 @@
         this.status = status;
     }
 
-    library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
-    library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
-    library.update();
-
-    const button = document.getElementById("add-book-btn");
-    button.addEventListener("click", () => {displayForm(true);});
-
     function displayForm(displayed) {
         const form = document.getElementById("book-form-container");
         const btn = document.getElementById("add-book-btn");
         
-        if (displayed) {
-            form.style.display = "block";
-            btn.style.display = "none";
-        }
-        else {
-            form.style.display = "none";
-            btn.style.display = "block";
-        }
+        form.style.display = displayed ? "block" : "none";
+        btn.style.display = displayed ? "none" : "block";
+
     }
 
     function submitForm() {
@@ -116,6 +120,13 @@
         form.reset();
         displayForm(false);
     }
+
+    library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
+    library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
+    library.update();
+
+    const button = document.getElementById("add-book-btn");
+    button.addEventListener("click", () => {displayForm(true);});
 
 </script>
 </html>

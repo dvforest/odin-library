@@ -8,3 +8,20 @@
     grid-template-columns: max-content 1fr;
     gap: 0.4rem 1rem;
 }
+
+#library {
+    border-collapse: collapse;
+    border: 2px solid black;
+    margin-bottom: 1rem;
+}
+
+#library caption {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+}
+
+#library th, td {
+    border: 1px solid grey;
+    padding: 0.5rem 1rem;
+    text-align: left;
+}

@@ -7,20 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <table id="library">
+    <table id="lib-table">
         <caption>My Library</caption>
         <thead>
             <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Pages</th>
-                <th scope="col">Status</th>                
+                <th scope="col">Status</th>   
+                <td scope="col"></td>
             </tr>
-            <tbody id="lib-body"></tbody>
         </thead>
+        <tbody id="lib-body"></tbody>
     </table>
 
-    <button id="add-book-btn"> Add Book</button>
+    <button id="add-book-btn" class="important"> Add Book</button>
 
     <div id="book-form-container">
         <form onsubmit="return submitForm()" id="book-form">
@@ -43,8 +44,8 @@
                         <option value="Reading Now">Reading Now</option>
                         <option value="Want to Read">Want to Read</option>
                     </select>
-                    <button type ="button" id="book-form-cancel-btn" onclick="cancelForm()">Cancel</button>
-                    <button type="submit" id="add-to-library-btn">Add to Library</button>
+                    <button type="button" id="book-form-cancel-btn" class="secondary" onclick="cancelForm()">Cancel</button>
+                    <button type="submit" id="add-to-library-btn" class="important">Add to Library</button>
                 </div>
             </fieldset>
         </form>
@@ -77,6 +78,7 @@
                     <td>${element.author}</td>
                     <td>${element.pages}</td>
                     <td>${element.status}</td>
+                    <td><img src="images/delete.svg" alt="" class="delete-icon"></td>
                 `;
                 lib.appendChild(row);
             });

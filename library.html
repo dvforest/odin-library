@@ -21,12 +21,12 @@
         <tbody id="lib-body"></tbody>
     </table>
 
-    <button id="add-book-btn" class="important"> Add Book</button>
+    <button id="new-book-btn" class="important"> New Book</button>
 
     <div id="book-form-container">
         <form onsubmit="return submitForm()" id="book-form">
             <fieldset>
-                <legend>Enter Book Information</legend>
+                <legend>New Book</legend>
 
                 <div class="form-grid">
                     <label for="book-title">Title</label>
@@ -94,7 +94,7 @@
 
     function displayForm(displayed) {
         const form = document.getElementById("book-form-container");
-        const btn = document.getElementById("add-book-btn");
+        const btn = document.getElementById("new-book-btn");
         
         form.style.display = displayed ? "block" : "none";
         btn.style.display = displayed ? "none" : "block";
@@ -127,7 +127,7 @@
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
     library.update();
 
-    const button = document.getElementById("add-book-btn");
+    const button = document.getElementById("new-book-btn");
     button.addEventListener("click", () => {displayForm(true);});
 
 </script>

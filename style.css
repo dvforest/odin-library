@@ -13,6 +13,9 @@ body {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header-section {
@@ -22,8 +25,9 @@ body {
 }
 
 .header-section .title {
-    font-size: 2.25rem;
-    font-weight: 500;
+    font-size: 3.5rem;
+    font-weight: 600;
+    font-family: "Zain", serif;
     color: var(--secondary-color);
 }
 
@@ -40,10 +44,14 @@ body {
 
 .lib-table caption {
     margin: 0.5rem 0;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 300;
-    text-align: left;
+    text-align: center;
     font-family: "Zain", serif;
+}
+
+.lib-table caption .bold {
+    font-weight: 600;
 }
 
 .lib-table th, td {
@@ -73,7 +81,6 @@ body {
 }
 
 .book-form-container {
-    width: 300px;
     display: none;
 }
 
@@ -113,7 +120,7 @@ body {
 }
 
 button {
-    padding: 0.4rem 1.5rem;
+    padding: 0.6rem 1.7rem;
     font-size: 1rem;
     font-weight: bold;
     border-radius: 0.5rem;

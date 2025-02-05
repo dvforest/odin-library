@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <table id="lib-table">
-        <caption>My Library</caption>
+    <div class="header-section">
+        <img src="images/book.png" alt="" class="book-icon">
+        <div class="title">My Library</div>
+    </div>
+    <table class="lib-table">
+        <caption>What are you reading?</caption>
         <thead>
             <tr>
                 <th scope="col">Title</th>
@@ -23,8 +35,8 @@
 
     <button id="new-book-btn" class="important"> New Book</button>
 
-    <div id="book-form-container">
-        <form onsubmit="return submitForm()" id="book-form">
+    <div id="book-form-container" class="book-form-container">
+        <form onsubmit="return submitForm()" id="book-form" class="book-form">
             <fieldset>
                 <legend>New Book</legend>
 

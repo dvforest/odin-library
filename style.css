@@ -1,10 +1,11 @@
 :root {
-    --logo-primary-color: rgb(66,141,255);
-    --logo-secondary-color: rgb(202, 217, 252);
-    --form-color: rgb(138, 43, 226); 
+    --logo-primary-color: rgb(88, 141, 220);
+    --logo-secondary-color: rgb(221, 229, 247);
+    --form-color: rgb(98, 151, 144);
+    --neutral-color: rgb(166, 166, 187);
     --faded-color: rgb(213, 213, 230);
-    --zebra-stripe1:hsl(222, 95%, 99%);
-    --zebra-stripe2:hsl(222, 95%, 96%);
+    --zebra-stripe1:hsl(160, 33%, 96%);
+    --zebra-stripe2:hsl(171, 25%, 90%);
 }
 
 body {
@@ -91,11 +92,14 @@ body {
 }
 
 .book-form legend {
-    padding: 0 1rem;
-    text-align: center;
     font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
     position: relative;
     top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .book-form input, select {
@@ -116,8 +120,25 @@ button {
     border: none;
 }
 
-button.important {
-    background-color: var(--form-color);
+.new-book-btn {
+    background-color: var(--logo-primary-color);
     color: white;
+}
+
+.cancel-btn {
+    background-color: var(--logo-secondary-color);
+    color: black;
+}
+
+.add-to-library-btn {
+    background-color: var(--logo-primary-color);
+    color: white;
+}
+
+.book-plus-icon {
+    width: 2rem;
+    aspect-ratio: 1 / 1;
+    mask: url("images/book-plus.svg");
+    background-color: var(--logo-secondary-color);
 }
 

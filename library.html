@@ -33,12 +33,12 @@
         <tbody id="lib-body"></tbody>
     </table>
 
-    <button id="new-book-btn" class="important"> New Book</button>
+    <button id="new-book-btn" class="new-book-btn">New Book</button>
 
     <div id="book-form-container" class="book-form-container">
         <form onsubmit="return submitForm()" id="book-form" class="book-form">
             <fieldset>
-                <legend>New Book</legend>
+                <legend><div class="book-plus-icon"></div>New Book</legend>
 
                 <div class="form-grid">
                     <label for="book-title">Title</label>
@@ -56,8 +56,8 @@
                         <option value="Reading Now">Reading Now</option>
                         <option value="Want to Read">Want to Read</option>
                     </select>
-                    <button type="button" id="book-form-cancel-btn" class="secondary" onclick="cancelForm()">Cancel</button>
-                    <button type="submit" id="add-to-library-btn" class="important">Add to Library</button>
+                    <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm()">Cancel</button>
+                    <button type="submit" id="add-to-library-btn" class="add-to-library-btn">Add to Library</button>
                 </div>
             </fieldset>
         </form>

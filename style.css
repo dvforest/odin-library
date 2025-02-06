@@ -76,7 +76,7 @@ body {
     background-color: var(--zebra-stripe2);
 }
 
-.delete-icon {
+.small-form-icon {
     width: 1.2rem;
 }
 
@@ -137,7 +137,7 @@ button {
     color: black;
 }
 
-.add-to-library-btn {
+.submit-btn {
     background-color: var(--logo-primary-color);
     color: white;
 }

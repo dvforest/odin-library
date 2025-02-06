@@ -20,14 +20,15 @@
         <div class="title">My Library</div>
     </div>
     <table class="lib-table">
-        <caption><span class="bold">Hey there!</span> Tell us what you are reading.</caption>
+        <caption><span class="bold">This is your space.</span> Start tracking your readings!</caption>
         <thead>
             <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Pages</th>
                 <th scope="col">Status</th>   
-                <td scope="col"></td>
+                <td scope="col" aria-label="Edit"></td>
+                <td scope="col" aria-label="Delete"></td>
             </tr>
         </thead>
         <tbody id="lib-body"></tbody>
@@ -35,8 +36,8 @@
 
     <button id="new-book-btn" class="new-book-btn">New Book</button>
 
-    <div id="book-form-container" class="book-form-container">
-        <form onsubmit="return submitForm()" id="book-form" class="book-form">
+    <div id="book-form-container-new" class="book-form-container">
+        <form onsubmit="return submitForm(`new`)" id="book-form-new" class="book-form">
             <fieldset>
                 <legend><div class="book-plus-icon"></div>New Book</legend>
 
@@ -56,8 +57,36 @@
                         <option value="Reading Now">Reading Now</option>
                         <option value="Want to Read">Want to Read</option>
                     </select>
-                    <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm()">Cancel</button>
-                    <button type="submit" id="add-to-library-btn" class="add-to-library-btn">Add to Library</button>
+                    <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm(`new`)">Cancel</button>
+                    <button type="submit" id="submit-btn-edit" class="submit-btn">Add to Library</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="book-form-container-edit" class="book-form-container">
+        <form onsubmit="return submitForm(`edit`)" id="book-form-edit" class="book-form">
+            <fieldset>
+                <legend><div class="book-plus-icon"></div>New Book</legend>
+
+                <div class="form-grid">
+                    <label for="book-title">Title</label>
+                    <input type="text" name="book-title" id="book-title">
+
+                    <label for="book-author">Author</label>
+                    <input type="text" name="book-author" id="book-author">
+
+                    <label for="book-pages">Number of pages</label>
+                    <input type="number" name="book-pages" id="book-pages">
+
+                    <label for="book-status">Status</label>
+                    <select name="book-status" id="book-status">
+                        <option value="Finished">Finished</option>
+                        <option value="Reading Now">Reading Now</option>
+                        <option value="Want to Read">Want to Read</option>
+                    </select>
+                    <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm(`edit`)">Cancel</button>
+                    <button type="submit" id="submit-btn-edit" class="submit-btn">Add to Library</button>
                 </div>
             </fieldset>
         </form>
@@ -90,7 +119,8 @@
                     <td>${element.author}</td>
                     <td>${element.pages}</td>
                     <td>${element.status}</td>
-                    <td><img src="images/delete.svg" alt="" class="delete-icon"></td>
+                    <td><img src="images/square-edit-outline.svg" alt="" class="edit small-form-icon"></td>
+                    <td><img src="images/delete.svg" alt="" class="delete small-form-icon"></td>
                 `;
                 lib.appendChild(row);
             });
@@ -104,8 +134,32 @@
         this.status = status;
     }
 
-    function displayForm(displayed) {
-        const form = document.getElementById("book-form-container");
+    function submitForm(action) {
+        const title = document.getElementById("book-title").value;
+        const author = document.getElementById("book-author").value;
+        const pages = document.getElementById("book-pages").value;
+        const status = document.getElementById("book-status").value;
+        const form = document.getElementById(`book-form-${action}`);
+
+        if (action === "new") {
+        library.add(new Book(title, author, pages, status))
+        }
+        if (action === "edit") {
+
+        }
+
+        displayForm(action, false);
+        return false;
+    }
+
+    function cancelForm(action) {
+        const form = document.getElementById(`book-form-${action}`);
+        form.reset();
+        displayForm(action, false);
+    }
+
+    function displayForm(action, displayed) {
+        const form = document.getElementById(`book-form-container-${action}`);
         const btn = document.getElementById("new-book-btn");
         
         form.style.display = displayed ? "block" : "none";
@@ -113,34 +167,12 @@
 
     }
 
-    function submitForm() {
-        const title = document.getElementById("book-title").value;
-        const author = document.getElementById("book-author").value;
-        const pages = document.getElementById("book-pages").value;
-        const status = document.getElementById("book-status").value;
-        const form = document.getElementById("book-form");
-
-        library.add(new Book(title, author, pages, status))
-        displayForm(false);
-        form.reset();
-        library.update();
-
-        return false;
-    }
-
-    function cancelForm() {
-        const form = document.getElementById("book-form");
-        
-        form.reset();
-        displayForm(false);
-    }
-
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
     library.update();
 
     const button = document.getElementById("new-book-btn");
-    button.addEventListener("click", () => {displayForm(true);});
+    button.addEventListener("click", () => {displayForm("new", true);});
 
 </script>
 </html>

@@ -78,6 +78,20 @@ body {
 
 .small-form-icon {
     width: 1.2rem;
+    aspect-ratio: 1 / 1;
+    background-color: black;
+}
+
+.small-form-icon.edit {
+    mask: url("images/square-edit-outline.svg");
+}
+
+.small-form-icon.delete {
+    mask: url("images/delete.svg");
+}
+
+.small-form-icon:hover {
+    background-color: var(--logo-primary-color);
 }
 
 .book-form-container {

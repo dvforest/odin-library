@@ -34,12 +34,12 @@
         <tbody id="lib-body"></tbody>
     </table>
 
-    <button id="new-book-btn" class="new-book-btn">New Book</button>
+    <button id="new-book-btn" class="new-book-btn" onclick="displayForm(`new`, true)">New Book</button>
 
     <div id="book-form-container-new" class="book-form-container">
         <form onsubmit="return submitForm(`new`)" id="book-form-new" class="book-form">
             <fieldset>
-                <legend><div class="book-plus-icon"></div>New Book</legend>
+                <legend><div class="form-faded-icon new"></div>New Book</legend>
 
                 <div class="form-grid">
                     <label for="book-title">Title</label>
@@ -67,7 +67,7 @@
     <div id="book-form-container-edit" class="book-form-container">
         <form onsubmit="return submitForm(`edit`)" id="book-form-edit" class="book-form">
             <fieldset>
-                <legend><div class="book-plus-icon"></div>New Book</legend>
+                <legend><div class="form-faded-icon edit"></div>Edit Book</legend>
 
                 <div class="form-grid">
                     <label for="book-title">Title</label>
@@ -86,7 +86,7 @@
                         <option value="Want to Read">Want to Read</option>
                     </select>
                     <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm(`edit`)">Cancel</button>
-                    <button type="submit" id="submit-btn-edit" class="submit-btn">Add to Library</button>
+                    <button type="submit" id="submit-btn-edit" class="submit-btn">Edit</button>
                 </div>
             </fieldset>
         </form>
@@ -105,8 +105,13 @@
             const index = this.books.findIndex(element => element.id === id);
             this.books.splice(index, 1);
         },
-        info: function(){
-            return this.books;
+        editByID: function(id, title, author, pages, status){
+            const index = this.books.findIndex(element => element.id === id);
+            const book = this.books[index];
+            book.title = title;
+            book.author = author;
+            book.pages = pages;
+            book.status = status;            
         },
         update: function(){
             const lib = document.getElementById("lib-body");
@@ -119,12 +124,12 @@
                     <td>${element.author}</td>
                     <td>${element.pages}</td>
                     <td>${element.status}</td>
-                    <td><div class="edit small-form-icon"></div></td>
-                    <td><div class="delete small-form-icon"></div></td>
+                    <td><div class="edit small-form-icon" id="edit-btn-${element.id}"></div></td>
+                    <td><div class="delete small-form-icon" id="delete-btn-${element.id}"></div></td>
                 `;
                 lib.appendChild(row);
             });
-        }
+        },
     }
 
     function Book(title, author, pages, status){
@@ -143,9 +148,6 @@
 
         if (action === "new") {
         library.add(new Book(title, author, pages, status))
-        }
-        if (action === "edit") {
-
         }
 
         displayForm(action, false);
@@ -170,9 +172,6 @@
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
     library.update();
-
-    const button = document.getElementById("new-book-btn");
-    button.addEventListener("click", () => {displayForm("new", true);});
 
 </script>
 </html>

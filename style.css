@@ -156,10 +156,17 @@ button {
     color: white;
 }
 
-.book-plus-icon {
+.form-faded-icon {
     width: 2rem;
     aspect-ratio: 1 / 1;
-    mask: url("images/book-plus.svg");
     background-color: var(--logo-secondary-color);
+}
+
+.form-faded-icon.new{
+    mask: url("images/book-plus.svg");
+}
+
+.form-faded-icon.edit{
+    mask: url("images/square-edit-outline.svg");
 }
 

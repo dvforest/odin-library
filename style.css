@@ -48,6 +48,8 @@ body {
 
 .lib-table {
     margin-bottom: 1rem;
+    min-width: min-content;
+    width: 50%;
     border-collapse: collapse;
     border: 1px solid var(--zebra-stripe2);
     box-shadow: 0 0.1rem 0.2rem rgb(0 0 0 / 10%);
@@ -108,11 +110,12 @@ body {
 .book-form{
     margin: auto;
     margin-top: 25vh;
-    width: min-content;
+    min-width: min-content;
+    width: 25%;
     border: none;
     border-radius: 0.8rem;
     background-color: white;
-    padding: 1rem 1.5rem;
+    padding: 1.5rem 2.5rem;
     box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 30%)
 }
 
@@ -130,11 +133,14 @@ body {
 
 .book-form legend {
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+}
+
+.book-form .legend-wrapper {
     text-align: center;
     margin-bottom: 1rem;
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
 }
 
@@ -142,13 +148,14 @@ body {
     border: 1px solid var(--faded-color);
     padding: 0.3rem 0.5rem;
     border-radius: 0.25rem;
+    font-size: 1rem;
 }
 
 .book-form input:focus {
     outline: 1px solid var(--form-color);
 }
 
-button {
+.new-book-btn, .submit-btn, .cancel-btn {
     padding: 0.6rem 1.7rem;
     font-size: 1rem;
     font-weight: bold;

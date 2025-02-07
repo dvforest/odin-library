@@ -38,7 +38,10 @@
     <div id="book-form-modal" class="modal">
         <form onsubmit="return false" id="book-form" class="book-form"> <!--onsubmit function set with JS-->
             <fieldset>
-                <legend id="book-form-legend"><div class="form-faded-icon new"></div></legend> <!--legend text set with JS-->
+                <div class="legend-wrapper">
+                    <div id="form-faded-icon" class="form-faded-icon"></div>
+                    <legend id="book-form-legend"></legend> <!--legend text set with JS-->
+                </div> 
                 <div class="grid">
                     <label for="book-title">Title</label>
                     <input type="text" name="book-title" id="book-title">
@@ -95,8 +98,8 @@
                     <td>${element.author}</td>
                     <td>${element.pages}</td>
                     <td>${element.status}</td>
-                    <td><div class="edit small-form-icon" id="edit-btn-${element.id}"></div></td>
-                    <td><div class="delete small-form-icon" id="delete-btn-${element.id}"></div></td>
+                    <td><button class="edit small-form-icon" id="edit-btn-${element.id}" onclick="editBook(${element.id})"></button></td>
+                    <td><button class="delete small-form-icon" id="delete-btn-${element.id}"></button></td>
                 `;
                 lib.appendChild(row);
             });
@@ -137,6 +140,9 @@
             return false;
         }
 
+        const icon = document.getElementById("form-faded-icon");
+        toggleClass(icon, "new", "edit");
+
         const legend = document.getElementById("book-form-legend");
         legend.innerText = "New Book";
 
@@ -168,11 +174,14 @@
             return false;
         }
 
+        const icon = document.getElementById("form-faded-icon");
+        toggleClass(icon, "edit", "new");
+
         const legend = document.getElementById("book-form-legend");
         legend.innerText = "Edit Book";
 
         const submit = document.getElementById("book-form-submit");
-        submit.innerText = "Save Edits";
+        submit.innerText = "Apply";
 
         displayModal("book-form", true);
     }
@@ -185,6 +194,17 @@
         }
 
         modal.style.display = visible ? "block" : "none";
+    }
+
+    function toggleClass (div, newClass, oldClass){
+        if (div.classList.contains(newClass)){
+            div.classList.remove(newClass);
+        }
+        if (div.classList.contains(oldClass)){
+            div.classList.remove(oldClass);
+        }
+
+        div.classList.add(newClass);
     }
 
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));

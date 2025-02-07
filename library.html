@@ -9,24 +9,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="header-section">
         <img src="images/book.png" alt="" class="book-icon">
         <div class="title">My Library</div>
     </div>
+
     <table class="lib-table">
-        <caption><span class="bold">This is your space.</span> Start tracking your readings!</caption>
+        <caption>Keep track of your book collection</caption>
         <thead>
             <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Pages</th>
-                <th scope="col">Status</th>   
+                <th scope="col">Status</th>  
                 <td scope="col" aria-label="Edit"></td>
                 <td scope="col" aria-label="Delete"></td>
             </tr>
@@ -34,14 +33,13 @@
         <tbody id="lib-body"></tbody>
     </table>
 
-    <button id="new-book-btn" class="new-book-btn" onclick="displayForm(`new`, true)">New Book</button>
+    <button id="new-book-btn" class="new-book-btn" onclick="newBook()">New Book</button>
 
-    <div id="book-form-container-new" class="book-form-container">
-        <form onsubmit="return submitForm(`new`)" id="book-form-new" class="book-form">
+    <div id="book-form-modal" class="modal">
+        <form onsubmit="return false" id="book-form" class="book-form"> <!--onsubmit function set with JS-->
             <fieldset>
-                <legend><div class="form-faded-icon new"></div>New Book</legend>
-
-                <div class="form-grid">
+                <legend id="book-form-legend"><div class="form-faded-icon new"></div></legend> <!--legend text set with JS-->
+                <div class="grid">
                     <label for="book-title">Title</label>
                     <input type="text" name="book-title" id="book-title">
 
@@ -55,38 +53,10 @@
                     <select name="book-status" id="book-status">
                         <option value="Finished">Finished</option>
                         <option value="Reading Now">Reading Now</option>
-                        <option value="Want to Read">Want to Read</option>
+                        <option value="Wishlist">Wishlist</option>
                     </select>
-                    <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm(`new`)">Cancel</button>
-                    <button type="submit" id="submit-btn-edit" class="submit-btn">Add to Library</button>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-
-    <div id="book-form-container-edit" class="book-form-container">
-        <form onsubmit="return submitForm(`edit`)" id="book-form-edit" class="book-form">
-            <fieldset>
-                <legend><div class="form-faded-icon edit"></div>Edit Book</legend>
-
-                <div class="form-grid">
-                    <label for="book-title">Title</label>
-                    <input type="text" name="book-title" id="book-title">
-
-                    <label for="book-author">Author</label>
-                    <input type="text" name="book-author" id="book-author">
-
-                    <label for="book-pages">Number of pages</label>
-                    <input type="number" name="book-pages" id="book-pages">
-
-                    <label for="book-status">Status</label>
-                    <select name="book-status" id="book-status">
-                        <option value="Finished">Finished</option>
-                        <option value="Reading Now">Reading Now</option>
-                        <option value="Want to Read">Want to Read</option>
-                    </select>
-                    <button type="button" id="book-form-cancel-btn" class="cancel-btn" onclick="cancelForm(`edit`)">Cancel</button>
-                    <button type="submit" id="submit-btn-edit" class="submit-btn">Edit</button>
+                    <button type="button" id="book-form-cancel" class="cancel-btn" onclick="displayModal('book-form', false);">Cancel</button>
+                    <button type="submit" id="book-form-submit" class="submit-btn"></button> <!--button text set with JS-->
                 </div>
             </fieldset>
         </form>
@@ -97,6 +67,7 @@
     const library = {
         books: [],
         nextId: 0,
+        selectedId: 0,
         add: function(book){
             book.id = this.nextId++;
             this.books.push(book);
@@ -105,7 +76,7 @@
             const index = this.books.findIndex(element => element.id === id);
             this.books.splice(index, 1);
         },
-        editByID: function(id, title, author, pages, status){
+        editById: function(id, title, author, pages, status){
             const index = this.books.findIndex(element => element.id === id);
             const book = this.books[index];
             book.title = title;
@@ -140,37 +111,84 @@
     }
 
     function submitForm(action) {
-        const title = document.getElementById("book-title").value;
-        const author = document.getElementById("book-author").value;
-        const pages = document.getElementById("book-pages").value;
-        const status = document.getElementById("book-status").value;
-        const form = document.getElementById(`book-form-${action}`);
+        const form = document.getElementById("book-form");
+        const title = form.elements["book-title"].value;
+        const author = form.elements["book-author"].value;
+        const pages = form.elements["book-pages"].value;
+        const status = form.elements["book-status"].value;
 
         if (action === "new") {
-        library.add(new Book(title, author, pages, status))
+            library.add(new Book(title, author, pages, status));
         }
 
-        displayForm(action, false);
-        return false;
+        if (action === "edit") {
+            library.editById(library.selectedId, title, author, pages, status);
+        }
+
+        displayModal("book-form", false);
+        library.update();
     }
 
-    function cancelForm(action) {
-        const form = document.getElementById(`book-form-${action}`);
+    function newBook() {
+        const form = document.getElementById("book-form");
         form.reset();
-        displayForm(action, false);
+        form.onsubmit = function() {
+            submitForm("new");
+            return false;
+        }
+
+        const legend = document.getElementById("book-form-legend");
+        legend.innerText = "New Book";
+
+        const submit = document.getElementById("book-form-submit");
+        submit.innerText = "Add to Library";
+
+        displayModal("book-form", true);
+
+        window.onclick = function(event) {
+            modal = document.getElementById("book-form-modal");
+            if (event.target === modal) {
+                modal.style.display = "none";          
+            }
+        }
     }
 
-    function displayForm(action, displayed) {
-        const form = document.getElementById(`book-form-container-${action}`);
-        const btn = document.getElementById("new-book-btn");
-        
-        form.style.display = displayed ? "block" : "none";
-        btn.style.display = displayed ? "none" : "block";
+    function editBook(id) {
+        const index = library.books.findIndex((element) => element.id === id);
+        const book = library.books[index];
+        library.selectedId = id;
+        document.getElementById("book-title").value = book.title;
+        document.getElementById("book-author").value = book.author;
+        document.getElementById("book-pages").value = book.pages;
+        document.getElementById("book-status").value = book.status;
 
+        const form = document.getElementById("book-form");
+        form.onsubmit = function() {
+            submitForm("edit");
+            return false;
+        }
+
+        const legend = document.getElementById("book-form-legend");
+        legend.innerText = "Edit Book";
+
+        const submit = document.getElementById("book-form-submit");
+        submit.innerText = "Save Edits";
+
+        displayModal("book-form", true);
+    }
+
+    function displayModal(type, visible) {
+        let modal;
+
+        if (type === "book-form") {
+            modal = document.getElementById("book-form-modal");
+        }
+
+        modal.style.display = visible ? "block" : "none";
     }
 
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
-    library.add(new Book("Fablehaven", "Brandon Muil", "434", "Not Read Yet"));
+    library.add(new Book("Fablehaven", "Brandon Muil", "434", "Wishlist"));
     library.update();
 
 </script>

@@ -65,13 +65,13 @@
         </form>
     </div>
 
-    <div id="book-delete-modal" class="modal">
+    <div id="delete-confirm-modal" class="modal">
         <div id="delete-confirm" class="modal-container">
             <div class="title-wrapper">
                 <div class="modal-icon-faded delete"></div>
                 <h1 class="title">Delete <span id="delete-title"></span> ?</h1>
             </div>
-            <p>The book will be removed from your library.</p> 
+            <p>This will remove the book from your library.</p> 
             <div class="grid">
                 <button class="cancel-btn" onclick="displayModal('delete-confirm', false)">Cancel</button>
                 <button id="delete-btn" class="delete-btn">Delete</button>
@@ -216,28 +216,15 @@
     }
 
     function displayModal(type, visible) {
-        let modal;
-
-        if (type === "book-form") {
-            modal = document.getElementById("book-form-modal");
-        }
-
-        if (type === "delete-confirm") {
-            modal = document.getElementById("book-delete-modal");
-        }
+        modal = document.getElementById(`${type}-modal`);
 
         modal.style.display = visible ? "block" : "none";
 
         window.onclick = function(event) {
-            modal = document.getElementsByClassName("modal")[0];
             if (event.target === modal) {
                 modal.style.display = "none";          
             }
         }
-    }
-
-    function displayLibrary(visible) {
-        const library = document.getElementById()
     }
 
     function toggleClass (div, newClass, oldClass){

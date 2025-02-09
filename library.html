@@ -19,7 +19,7 @@
     </div>
 
     <table class="lib-table">
-        <caption>Keep track of your book collection</caption>
+        <caption>Manage your book collection</caption>
         <thead>
             <tr>
                 <th scope="col">Title</th>
@@ -36,11 +36,11 @@
     <button id="new-book-btn" class="new-book-btn" onclick="newBook()">New Book</button>
 
     <div id="book-form-modal" class="modal">
-        <form onsubmit="return false" id="book-form" class="book-form"> <!--onsubmit function set with JS-->
+        <form onsubmit="return false" id="book-form" class="modal-container"> <!--onsubmit function set with JS-->
             <fieldset>
-                <div class="legend-wrapper">
-                    <div id="form-faded-icon" class="form-faded-icon"></div>
-                    <legend id="book-form-legend"></legend> <!--legend text set with JS-->
+                <div class="title-wrapper">
+                    <div id="form-icon-faded" class="modal-icon-faded"></div>
+                    <legend id="book-form-legend" class="title"></legend> <!--legend text set with JS-->
                 </div> 
                 <div class="grid">
                     <label for="book-title">Title</label>
@@ -63,6 +63,20 @@
                 </div>
             </fieldset>
         </form>
+    </div>
+
+    <div id="book-delete-modal" class="modal">
+        <div id="delete-confirm" class="modal-container">
+            <div class="title-wrapper">
+                <div class="modal-icon-faded delete"></div>
+                <h1 class="title">Delete <span id="delete-title"></span> ?</h1>
+            </div>
+            <p>The book will be removed from your library.</p> 
+            <div class="grid">
+                <button class="cancel-btn" onclick="displayModal('delete-confirm', false)">Cancel</button>
+                <button id="delete-btn" class="delete-btn">Delete</button>
+            </div>
+        </div>
     </div>
 </body>
 <script>
@@ -91,18 +105,27 @@
             const lib = document.getElementById("lib-body");
             lib.innerHTML = "";
 
-            this.books.forEach((element, index) => {
+            if (this.books.length === 0){
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <th scope="row">${element.title}</th>
-                    <td>${element.author}</td>
-                    <td>${element.pages}</td>
-                    <td>${element.status}</td>
-                    <td><button class="edit small-form-icon" id="edit-btn-${element.id}" onclick="editBook(${element.id})"></button></td>
-                    <td><button class="delete small-form-icon" id="delete-btn-${element.id}"></button></td>
+                    <td class="empty-table-text" colspan="6">Library is empty. Add a book to get started!</td>
                 `;
                 lib.appendChild(row);
-            });
+            }
+            else {
+                this.books.forEach((element, index) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <th scope="row">${element.title}</th>
+                        <td>${element.author}</td>
+                        <td>${element.pages}</td>
+                        <td>${element.status}</td>
+                        <td><button class="edit small-form-icon" onclick="editBook(${element.id})"></button></td>
+                        <td><button class="delete small-form-icon" onclick="deleteBook(${element.id}, '${element.title}')"></button></td>
+                    `;
+                    lib.appendChild(row);
+                });
+            }
         },
     }
 
@@ -140,7 +163,7 @@
             return false;
         }
 
-        const icon = document.getElementById("form-faded-icon");
+        const icon = document.getElementById("form-icon-faded");
         toggleClass(icon, "new", "edit");
 
         const legend = document.getElementById("book-form-legend");
@@ -150,13 +173,6 @@
         submit.innerText = "Add to Library";
 
         displayModal("book-form", true);
-
-        window.onclick = function(event) {
-            modal = document.getElementById("book-form-modal");
-            if (event.target === modal) {
-                modal.style.display = "none";          
-            }
-        }
     }
 
     function editBook(id) {
@@ -174,7 +190,7 @@
             return false;
         }
 
-        const icon = document.getElementById("form-faded-icon");
+        const icon = document.getElementById("form-icon-faded");
         toggleClass(icon, "edit", "new");
 
         const legend = document.getElementById("book-form-legend");
@@ -186,6 +202,19 @@
         displayModal("book-form", true);
     }
 
+    function deleteBook(id, title){
+        
+        document.getElementById("delete-title").innerText = title;
+        displayModal('delete-confirm', true);
+        
+        const btn = document.getElementById("delete-btn");
+        btn.onclick = function() {
+            library.removeById(id);
+            library.update();
+            displayModal('delete-confirm', false);
+        };
+    }
+
     function displayModal(type, visible) {
         let modal;
 
@@ -193,7 +222,22 @@
             modal = document.getElementById("book-form-modal");
         }
 
+        if (type === "delete-confirm") {
+            modal = document.getElementById("book-delete-modal");
+        }
+
         modal.style.display = visible ? "block" : "none";
+
+        window.onclick = function(event) {
+            modal = document.getElementsByClassName("modal")[0];
+            if (event.target === modal) {
+                modal.style.display = "none";          
+            }
+        }
+    }
+
+    function displayLibrary(visible) {
+        const library = document.getElementById()
     }
 
     function toggleClass (div, newClass, oldClass){

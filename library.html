@@ -81,29 +81,31 @@
 </body>
 <script>
 
-    // Need to refactor script using classes
+    class Library {
+        books = [];
+        nextId = 0;
+        selectedId = 0;
 
-    const library = {
-        books: [],
-        nextId: 0,
-        selectedId: 0,
-        add: function(book){
+        add(book) {
             book.id = this.nextId++;
             this.books.push(book);
-        },
-        removeById: function(id){
+        }
+
+        removeById(id) {
             const index = this.books.findIndex(element => element.id === id);
             this.books.splice(index, 1);
-        },
-        editById: function(id, title, author, pages, status){
+        }
+
+        editById(id, title, author, pages, status) {
             const index = this.books.findIndex(element => element.id === id);
             const book = this.books[index];
             book.title = title;
             book.author = author;
             book.pages = pages;
             book.status = status;            
-        },
-        update: function(){
+        }
+
+        update() {
             const lib = document.getElementById("lib-body");
             lib.innerHTML = "";
 
@@ -128,14 +130,16 @@
                     lib.appendChild(row);
                 });
             }
-        },
+        }
     }
 
-    function Book(title, author, pages, status){
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-        this.status = status;
+    class Book {
+        constructor(title, author, pages, status){
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.status = status;
+        }
     }
 
     function submitForm(action) {
@@ -240,6 +244,7 @@
         div.classList.add(newClass);
     }
 
+    const library = new Library();
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "Wishlist"));
     library.update();

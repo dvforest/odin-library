@@ -1,125 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Library</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Concert+One&family=Inconsolata:wdth,wght@125,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="header-section">
-        <img src="images/book.png" alt="" class="book-icon">
-        <div class="title">My Library</div>
+      <img src="images/book.png" alt="" class="book-icon" />
+      <div class="title">My Library</div>
     </div>
 
     <table class="lib-table">
-        <caption>Manage your book collection</caption>
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Pages</th>
-                <th scope="col">Status</th>  
-                <td scope="col" aria-label="Edit"></td>
-                <td scope="col" aria-label="Delete"></td>
-            </tr>
-        </thead>
-        <tbody id="lib-body"></tbody>
+      <caption>
+        Manage your book collection
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Pages</th>
+          <th scope="col">Status</th>
+          <td scope="col" aria-label="Edit"></td>
+          <td scope="col" aria-label="Delete"></td>
+        </tr>
+      </thead>
+      <tbody id="lib-body"></tbody>
     </table>
 
-    <button id="new-book-btn" class="new-book-btn" onclick="newBook()">New Book</button>
+    <button id="new-book-btn" class="new-book-btn" onclick="newBook()">
+      New Book
+    </button>
 
     <div id="book-form-modal" class="modal">
-        <form onsubmit="return false" id="book-form" class="modal-container"> <!--onsubmit function set with JS-->
-            <fieldset>
-                <div class="title-wrapper">
-                    <div id="form-icon-faded" class="modal-icon-faded"></div>
-                    <legend id="book-form-legend" class="title"></legend> <!--legend text set with JS-->
-                </div> 
-                <div class="grid">
-                    <label for="book-title">Title</label>
-                    <input type="text" name="book-title" id="book-title">
+      <form id="book-form" class="modal-container">
+        <!--onsubmit function set with JS-->
+        <fieldset>
+          <div class="title-wrapper">
+            <div id="form-icon-faded" class="modal-icon-faded"></div>
+            <legend id="book-form-legend" class="title"></legend>
+            <!--legend text set with JS-->
+          </div>
+          <div class="grid">
+            <label for="book-title">Title</label>
+            <input
+              type="text"
+              name="book-title"
+              id="book-title"
+              min="1"
+              required
+            />
 
-                    <label for="book-author">Author</label>
-                    <input type="text" name="book-author" id="book-author">
+            <label for="book-author">Author</label>
+            <input
+              type="text"
+              name="book-author"
+              id="book-author"
+              min="1"
+              required
+            />
 
-                    <label for="book-pages">Number of pages</label>
-                    <input type="number" name="book-pages" id="book-pages">
+            <label for="book-pages">Number of pages</label>
+            <input
+              type="number"
+              name="book-pages"
+              id="book-pages"
+              min="1"
+              required
+            />
 
-                    <label for="book-status">Status</label>
-                    <select name="book-status" id="book-status">
-                        <option value="Finished">Finished</option>
-                        <option value="Reading Now">Reading Now</option>
-                        <option value="Wishlist">Wishlist</option>
-                    </select>
-                    <button type="button" id="book-form-cancel" class="cancel-btn" onclick="displayModal('book-form', false);">Cancel</button>
-                    <button type="submit" id="book-form-submit" class="submit-btn"></button> <!--button text set with JS-->
-                </div>
-            </fieldset>
-        </form>
+            <label for="book-status">Status</label>
+            <select name="book-status" id="book-status">
+              <option value="Finished">Finished</option>
+              <option value="Reading Now">Reading Now</option>
+              <option value="Wishlist">Wishlist</option>
+            </select>
+            <button
+              type="button"
+              id="book-form-cancel"
+              class="cancel-btn"
+              onclick="displayModal('book-form', false);"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              id="book-form-submit"
+              class="submit-btn"
+            ></button>
+            <!--button text set with JS-->
+          </div>
+        </fieldset>
+      </form>
     </div>
 
     <div id="delete-confirm-modal" class="modal">
-        <div id="delete-confirm" class="modal-container">
-            <div class="title-wrapper">
-                <div class="modal-icon-faded delete"></div>
-                <h1 class="title">Delete <span id="delete-title"></span> ?</h1>
-            </div>
-            <p>This will remove the book from your library.</p> 
-            <div class="grid">
-                <button class="cancel-btn" onclick="displayModal('delete-confirm', false)">Cancel</button>
-                <button id="delete-btn" class="delete-btn">Delete</button>
-            </div>
+      <div id="delete-confirm" class="modal-container">
+        <div class="title-wrapper">
+          <div class="modal-icon-faded delete"></div>
+          <h1 class="title">Delete <span id="delete-title"></span> ?</h1>
         </div>
+        <p>This will remove the book from your library.</p>
+        <div class="grid">
+          <button
+            class="cancel-btn"
+            onclick="displayModal('delete-confirm', false)"
+          >
+            Cancel
+          </button>
+          <button id="delete-btn" class="delete-btn">Delete</button>
+        </div>
+      </div>
     </div>
-</body>
-<script>
-
+  </body>
+  <script>
     class Library {
-        books = [];
-        nextId = 0;
-        selectedId = 0;
+      books = [];
+      nextId = 0;
+      selectedId = 0;
 
-        add(book) {
-            book.id = this.nextId++;
-            this.books.push(book);
-        }
+      add(book) {
+        book.id = this.nextId++;
+        this.books.push(book);
+      }
 
-        removeById(id) {
-            const index = this.books.findIndex(element => element.id === id);
-            this.books.splice(index, 1);
-        }
+      removeById(id) {
+        const index = this.books.findIndex((element) => element.id === id);
+        this.books.splice(index, 1);
+      }
 
-        editById(id, title, author, pages, status) {
-            const index = this.books.findIndex(element => element.id === id);
-            const book = this.books[index];
-            book.title = title;
-            book.author = author;
-            book.pages = pages;
-            book.status = status;            
-        }
+      editById(id, title, author, pages, status) {
+        const index = this.books.findIndex((element) => element.id === id);
+        const book = this.books[index];
+        book.title = title;
+        book.author = author;
+        book.pages = pages;
+        book.status = status;
+      }
 
-        update() {
-            const lib = document.getElementById("lib-body");
-            lib.innerHTML = "";
+      update() {
+        const lib = document.getElementById("lib-body");
+        lib.innerHTML = "";
 
-            if (this.books.length === 0){
-                const row = document.createElement("tr");
-                row.innerHTML = `
+        if (this.books.length === 0) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
                     <td class="empty-table-text" colspan="6">Library is empty. Add a book to get started!</td>
                 `;
-                lib.appendChild(row);
-            }
-            else {
-                this.books.forEach((element, index) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
+          lib.appendChild(row);
+        } else {
+          this.books.forEach((element, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
                         <th scope="row">${element.title}</th>
                         <td>${element.author}</td>
                         <td>${element.pages}</td>
@@ -127,127 +171,166 @@
                         <td><button class="edit small-form-icon" onclick="editBook(${element.id})"></button></td>
                         <td><button class="delete small-form-icon" onclick="deleteBook(${element.id}, '${element.title}')"></button></td>
                     `;
-                    lib.appendChild(row);
-                });
-            }
+            lib.appendChild(row);
+          });
         }
+      }
     }
 
     class Book {
-        constructor(title, author, pages, status){
-            this.title = title;
-            this.author = author;
-            this.pages = pages;
-            this.status = status;
-        }
+      constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+      }
     }
 
     function submitForm(action) {
-        const form = document.getElementById("book-form");
-        const title = form.elements["book-title"].value;
-        const author = form.elements["book-author"].value;
-        const pages = form.elements["book-pages"].value;
-        const status = form.elements["book-status"].value;
+      const form = document.getElementById("book-form");
+      const titleEl = form.elements["book-title"];
+      const authorEl = form.elements["book-author"];
 
-        if (action === "new") {
-            library.add(new Book(title, author, pages, status));
-        }
+      const trimmedTitle = titleEl.value.trim();
+      const trimmedAuthor = authorEl.value.trim();
+      const pages = form.elements["book-pages"].value;
+      const status = form.elements["book-status"].value;
 
-        if (action === "edit") {
-            library.editById(library.selectedId, title, author, pages, status);
-        }
+      if (trimmedTitle === "") {
+        titleEl.setCustomValidity("Title cannot be empty or just spaces.");
+        titleEl.reportValidity();
+        return;
+      }
 
-        displayModal("book-form", false);
-        library.update();
+      if (trimmedAuthor === "") {
+        authorEl.setCustomValidity("Author cannot be empty or just spaces.");
+        authorEl.reportValidity();
+        return;
+      }
+
+      const alreadyExists = library.books.some(
+        (book) =>
+          book.title.toLowerCase() === trimmedTitle.toLowerCase() &&
+          (action === "new" || book.id !== library.selectedId) // exclude current book in edit mode
+      );
+
+      if (alreadyExists) {
+        titleEl.setCustomValidity("Title already exists in the library.");
+        titleEl.reportValidity();
+        return;
+      }
+
+      if (action === "new") {
+        library.add(new Book(trimmedTitle, trimmedAuthor, pages, status));
+      }
+
+      if (action === "edit") {
+        library.editById(
+          library.selectedId,
+          trimmedTitle,
+          trimmedAuthor,
+          pages,
+          status
+        );
+      }
+
+      displayModal("book-form", false);
+      library.update();
     }
 
     function newBook() {
-        const form = document.getElementById("book-form");
-        form.reset();
-        form.onsubmit = function() {
-            submitForm("new");
-            return false;
-        }
+      const form = document.getElementById("book-form");
+      form.reset();
+      form.onsubmit = function (event) {
+        event.preventDefault();
+        submitForm("new");
+      };
 
-        const icon = document.getElementById("form-icon-faded");
-        toggleClass(icon, "new", "edit");
+      const icon = document.getElementById("form-icon-faded");
+      toggleClass(icon, "new", "edit");
 
-        const legend = document.getElementById("book-form-legend");
-        legend.innerText = "New Book";
+      const legend = document.getElementById("book-form-legend");
+      legend.innerText = "New Book";
 
-        const submit = document.getElementById("book-form-submit");
-        submit.innerText = "Add to Library";
+      const submit = document.getElementById("book-form-submit");
+      submit.innerText = "Add to Library";
 
-        displayModal("book-form", true);
+      displayModal("book-form", true);
     }
 
     function editBook(id) {
-        const index = library.books.findIndex((element) => element.id === id);
-        const book = library.books[index];
-        library.selectedId = id;
-        document.getElementById("book-title").value = book.title;
-        document.getElementById("book-author").value = book.author;
-        document.getElementById("book-pages").value = book.pages;
-        document.getElementById("book-status").value = book.status;
+      const index = library.books.findIndex((element) => element.id === id);
+      const book = library.books[index];
+      library.selectedId = id;
+      document.getElementById("book-title").value = book.title;
+      document.getElementById("book-author").value = book.author;
+      document.getElementById("book-pages").value = book.pages;
+      document.getElementById("book-status").value = book.status;
 
-        const form = document.getElementById("book-form");
-        form.onsubmit = function() {
-            submitForm("edit");
-            return false;
-        }
+      const form = document.getElementById("book-form");
+      form.onsubmit = function (event) {
+        event.preventDefault();
+        submitForm("edit");
+      };
 
-        const icon = document.getElementById("form-icon-faded");
-        toggleClass(icon, "edit", "new");
+      const icon = document.getElementById("form-icon-faded");
+      toggleClass(icon, "edit", "new");
 
-        const legend = document.getElementById("book-form-legend");
-        legend.innerText = "Edit Book";
+      const legend = document.getElementById("book-form-legend");
+      legend.innerText = "Edit Book";
 
-        const submit = document.getElementById("book-form-submit");
-        submit.innerText = "Apply";
+      const submit = document.getElementById("book-form-submit");
+      submit.innerText = "Apply";
 
-        displayModal("book-form", true);
+      displayModal("book-form", true);
     }
 
-    function deleteBook(id, title){
-        
-        document.getElementById("delete-title").innerText = title;
-        displayModal('delete-confirm', true);
-        
-        const btn = document.getElementById("delete-btn");
-        btn.onclick = function() {
-            library.removeById(id);
-            library.update();
-            displayModal('delete-confirm', false);
-        };
+    function deleteBook(id, title) {
+      document.getElementById("delete-title").innerText = title;
+      displayModal("delete-confirm", true);
+
+      const btn = document.getElementById("delete-btn");
+      btn.onclick = function () {
+        library.removeById(id);
+        library.update();
+        displayModal("delete-confirm", false);
+      };
     }
 
     function displayModal(type, visible) {
-        modal = document.getElementById(`${type}-modal`);
+      modal = document.getElementById(`${type}-modal`);
 
-        modal.style.display = visible ? "block" : "none";
+      modal.style.display = visible ? "block" : "none";
 
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";          
-            }
+      window.onclick = function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
         }
+      };
     }
 
-    function toggleClass (div, newClass, oldClass){
-        if (div.classList.contains(newClass)){
-            div.classList.remove(newClass);
-        }
-        if (div.classList.contains(oldClass)){
-            div.classList.remove(oldClass);
-        }
+    function toggleClass(div, newClass, oldClass) {
+      if (div.classList.contains(newClass)) {
+        div.classList.remove(newClass);
+      }
+      if (div.classList.contains(oldClass)) {
+        div.classList.remove(oldClass);
+      }
 
-        div.classList.add(newClass);
+      div.classList.add(newClass);
     }
+
+    // Reset custom validation everytime input changes on modal
+    const titleInput = document.querySelector("#book-title");
+    const authorInput = document.querySelector("#book-author");
+    titleInput.addEventListener("input", (e) => e.target.setCustomValidity(""));
+    authorInput.addEventListener("input", (e) =>
+      e.target.setCustomValidity("")
+    );
 
     const library = new Library();
     library.add(new Book("Whisperwick", "Jordan Lee", "539", "Finished"));
     library.add(new Book("Fablehaven", "Brandon Muil", "434", "Wishlist"));
     library.update();
-
-</script>
+  </script>
 </html>
